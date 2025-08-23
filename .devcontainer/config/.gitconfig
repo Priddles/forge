@@ -1,0 +1,3 @@
+##mygitconfig
+[core]
+	editor = code --wait
