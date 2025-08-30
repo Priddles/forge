@@ -26,7 +26,7 @@ install() {
 prep_data() {
   ls -l /dev/disk/by-id/google-forge-data
   local DEVICE_NAME=/dev/sda
-  mkfs.ext4 -m 0 -E lazy_itable_init=0,lazy_journal_init=0,discard "/dev/$DEVICE_NAME"
+  mkfs -t ext4 -m 0 -E lazy_itable_init=0,lazy_journal_init=0,discard "/dev/$DEVICE_NAME"
 }
 
 # TODO: Only install if needed.
