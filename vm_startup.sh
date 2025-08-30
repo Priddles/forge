@@ -27,7 +27,10 @@ prep_data() {
   -E lazy_itable_init=0,lazy_journal_init=0,discard
 }
 
-# TODO: Only run install once.
+# TODO: Only install if needed.
 install
+
+# TODO: Only prep if needed.
+prep_data
 
 # TODO: Update A record in DNS.
