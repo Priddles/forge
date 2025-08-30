@@ -1,5 +1,5 @@
 server {
-    listen 443;
+    listen 443 ssl;
     server_name forge.priddles.xyz;
     return 418;
 }
