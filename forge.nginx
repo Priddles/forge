@@ -1,0 +1,5 @@
+server {
+    listen 443;
+    server_name forge.priddles.xyz;
+    return 418;
+}
