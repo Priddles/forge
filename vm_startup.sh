@@ -29,10 +29,21 @@ prep_data() {
   mkfs -t ext4 -m 0 -E lazy_itable_init=0,lazy_journal_init=0,discard "/dev/$DEVICE_NAME"
 }
 
+mount_data() {
+  ls -l /dev/disk/by-id/google-forge-data
+  local DEVICE_NAME=/dev/sda
+
+  mkdir -p /mnt/forge-data
+  mount -o discard,defaults "/dev/$DEVICE_NAME" /mnt/forge-data
+}
+
 # TODO: Only install if needed.
 install
 
 # TODO: Only prep if needed.
 prep_data
+
+# TODO: Only mount if needed.
+mount_data
 
 # TODO: Update A record in DNS.
