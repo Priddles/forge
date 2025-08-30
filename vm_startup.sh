@@ -20,7 +20,4 @@ install() {
 # TODO: Only run install once.
 install
 
-# TODO: Write nginx sites to: /etc/nginx/sites-available
-# TODO: Create symlinks in: /etc/nginx/sites-enabled
-
 # TODO: Update A record in DNS.
