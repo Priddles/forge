@@ -2,7 +2,8 @@
 
 Bootstrap:
 
-- [ ] Caddy http-only
+- [x] Caddy http-only
+- [ ] Update DNS on startup
 - [ ] Caddy secure-only
 - [ ] Forge user/group
 - [ ] Forge data dir
@@ -10,5 +11,7 @@ Bootstrap:
 - [ ] Forge from S3
 
 Startup:
-- [ ] Install git
-- [ ] Update DNS on startup
+- [x] Install git
+- [x] Clone repo
+- [x] Run bootstrap script
+- [x] Shutdown on error

@@ -1,0 +1,10 @@
+{
+	admin off
+	grace_period 10s
+	auto_https off
+}
+
+# Ensure site exists before Auto HTTPS adapters trigger.
+http:// {
+	respond "Hello world" 418
+}

@@ -1,6 +1,8 @@
 #!/bin/bash
 set -eux -o pipefail # Strict mode
 
+cd "$(dirname "$0")"
+
 log() {
   printf "%s\n" "$*"
 }
@@ -10,11 +12,14 @@ install_os_packages() {
 }
 
 setup_caddy() {
-  true
+  ln -sf "$PWD/Caddyfile" /etc/caddy/Caddyfile
+  systemctl enable caddy.service
+  systemctl restart caddy.service
 }
 
 main() {
   install_os_packages
+  setup_caddy
 }
 
 main "$@"
