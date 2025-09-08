@@ -1,10 +1,12 @@
 #!/bin/bash
 set -eux -o pipefail # Strict mode
 
+log() {
+  printf "%s\n" "$*"
+}
+
 install_os_packages() {
-  sudo apt-get update
-  sudo apt-get upgrade -y
-  sudo apt-get install caddy
+  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends caddy
 }
 
 setup_caddy() {
@@ -12,7 +14,7 @@ setup_caddy() {
 }
 
 main() {
-  setup_caddy
+  install_os_packages
 }
 
 main "$@"
