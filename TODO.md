@@ -3,8 +3,8 @@
 Bootstrap:
 
 - [x] Caddy http-only
-- [ ] Update DNS on startup
-- [ ] Caddy secure-only
+- [x] Update DNS on startup
+- [x] Caddy secure-only
 - [ ] Forge user/group
 - [ ] Forge data dir
 - [ ] Copyparty

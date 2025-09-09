@@ -3,6 +3,8 @@ set -eux -o pipefail # Strict mode
 trap 'shutdown now' ERR
 
 SCRIPTS_DIR=/opt/forge
+DNS_ZONE_NAME=REPLACEME
+DNS_DOMAIN_NAME=REPLACEME
 
 apt-get update
 
@@ -16,4 +18,4 @@ fi
 
 cd "$SCRIPTS_DIR"
 git pull
-bash './vm/bootstrap.sh'
+bash './vm/bootstrap.sh' "$DNS_ZONE_NAME" "$DNS_DOMAIN_NAME"
