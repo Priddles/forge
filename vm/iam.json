@@ -1,0 +1,15 @@
+{
+  "serviceaccount": {
+    "roles": ["roles/logging.logWriter", "roles/monitoring.metricWriter", "roles/forge_vm"]
+  },
+  "roles": [
+    {
+      "id": "roles/forge_vm",
+      "permissions": [
+        "dns.changes.create",
+        "dns.resourceRecordSets.list",
+        "dns.resourceRecordSets.update"
+      ]
+    }
+  ]
+}

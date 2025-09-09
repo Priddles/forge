@@ -5,4 +5,4 @@ Homebrew version of forge in GCP.
 **Stack:**
 
 - Uses devcontainer.
-- Uses terraform.
+- Uses ClickOps (do Terraform later!!!).
