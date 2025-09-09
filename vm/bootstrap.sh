@@ -3,7 +3,7 @@ set -eux -o pipefail # Strict mode
 
 DNS_ZONE_NAME=forge
 
-EXTERNAL_IP=$(curl -H 'Metadata-Flavor:Google' 'http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip')
+EXTERNAL_IP=$(curl -sS -H 'Metadata-Flavor:Google' 'http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip')
 
 cd "$(dirname "$0")"
 

@@ -6,6 +6,7 @@
     {
       "id": "roles/forge_vm",
       "permissions": [
+        "dns.changes.create",
         "dns.resourceRecordSets.list",
         "dns.resourceRecordSets.update"
       ]
