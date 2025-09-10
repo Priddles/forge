@@ -1,0 +1,49 @@
+# this will start `/usr/local/bin/copyparty-sfx.py` and
+# read copyparty config from `/etc/copyparty.conf`, for example:
+# https://github.com/9001/copyparty/blob/hovudstraum/contrib/systemd/copyparty.conf
+
+[Unit]
+Description=copyparty file server
+
+[Service]
+Type=notify
+SyslogIdentifier=copyparty
+Environment=PYTHONUNBUFFERED=x
+ExecReload=/bin/kill -s USR1 $MAINPID
+PermissionsStartOnly=true
+
+## user to run as + where the TLS certificate is (if any)
+##
+User=copyparty
+Group=copyparty
+SupplementaryGroups=forge-data
+WorkingDirectory=/var/lib/copyparty
+Environment=XDG_CONFIG_HOME=/var/lib/copyparty/.config
+
+## some quick hardening; TODO port more from the nixos package
+##
+MemoryMax=50%
+MemorySwapMax=50%
+ProtectClock=true
+ProtectControlGroups=true
+ProtectHostname=true
+ProtectKernelLogs=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectProc=invisible
+RemoveIPC=true
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+
+## create a directory for logfiles;
+##   this defines $LOGS_DIRECTORY which is used in copyparty.conf
+##
+LogsDirectory=copyparty
+
+## finally, start copyparty and give it the config file:
+##
+ExecStart=/usr/bin/python3 /usr/local/bin/copyparty-sfx.py -c /etc/copyparty.conf
+
+[Install]
+WantedBy=multi-user.target

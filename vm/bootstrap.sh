@@ -32,7 +32,7 @@ setup_caddy() {
   mkdir -p /etc/systemd/system/caddy.service.d
   cp -f caddy_override.conf /etc/systemd/system/caddy.service.d/override.conf
 
-  systemctl enable caddy.service
+  systemctl enable --now caddy.service
   systemctl restart caddy.service
 }
 
@@ -49,6 +49,9 @@ setup_copyparty() {
   if ! grep "^copyparty:" /etc/passwd; then
     useradd -r -s /sbin/nologin -m -d /var/lib/copyparty -G "$FORGE_DATA_GROUP" copyparty
   fi
+
+  systemctl enable --now copyparty
+  systemctl restart copyparty
 }
 
 main() {
