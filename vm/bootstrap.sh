@@ -1,7 +1,9 @@
 #!/bin/bash
 set -eux -o pipefail # Strict mode
 
-DNS_ZONE_NAME=forge
+# Script args
+DNS_ZONE_NAME=$1
+DNS_DOMAIN_NAME=$2
 
 EXTERNAL_IP=$(curl -sS -H 'Metadata-Flavor:Google' 'http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip')
 
@@ -16,21 +18,17 @@ install_os_packages() {
 }
 
 update_dns() {
-  local args=(--zone "$DNS_ZONE_NAME")
-
-  local records
-  records=$(gcloud dns record-sets list "${args[@]}" --format 'value(name)' --filter 'type=A')
-
-  for record in $records; do
-    IFS=$'\t' read -r -a data <<<"$record"
-    local name="${data[0]}"
-
-    gcloud dns record-sets update "$name" "${args[@]}" --type A --rrdatas="$EXTERNAL_IP"
+  for name in "$DNS_DOMAIN_NAME." "cp.$DNS_DOMAIN_NAME."; do
+    gcloud dns record-sets update "$name" --zone "$DNS_ZONE_NAME" --type A --rrdatas="$EXTERNAL_IP"
   done
 }
 
 setup_caddy() {
+  echo "DOMAIN=$DNS_DOMAIN_NAME" > /etc/caddy/.env
   ln -sf "$PWD/Caddyfile" /etc/caddy/Caddyfile
+  mkdir -p /etc/systemd/system/caddy.service.d
+  cp -f caddy_override.conf /etc/systemd/system/caddy.service.d/override.conf
+
   systemctl enable caddy.service
   systemctl restart caddy.service
 }
@@ -41,4 +39,4 @@ main() {
   setup_caddy
 }
 
-main "$@"
+main
