@@ -7,7 +7,7 @@ Bootstrap:
 - [x] Caddy secure-only
 - [x] Forge user/group
 - [x] Forge data dir
-- [ ] Copyparty
+- [x] Copyparty
 - [ ] Forge from S3
 
 Startup:

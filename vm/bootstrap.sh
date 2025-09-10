@@ -6,8 +6,8 @@ DNS_ZONE_NAME=$1
 DNS_DOMAIN_NAME=$2
 
 # Script constants
-FORGE_DATA=/var/forge-data
-FORGE_GROUP=forge
+FORGE_DATA_DIR=/var/forge_data
+FORGE_DATA_GROUP=forge-data
 
 # GCP metadata
 EXTERNAL_IP=$(curl -sS -H 'Metadata-Flavor:Google' 'http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip')
@@ -17,7 +17,7 @@ log() {
 }
 
 install_os_packages() {
-  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends caddy
+  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends caddy python3
 }
 
 update_dns() {
@@ -37,10 +37,24 @@ setup_caddy() {
 }
 
 setup_forge_data() {
-  groupadd -f -g 1337 "$FORGE_GROUP"
-  mkdir -p "$FORGE_DATA"
-  chown root:"$FORGE_GROUP" "$FORGE_DATA"
-  chmod g+rwx "$FORGE_DATA"
+  groupadd -f -g 1337 "$FORGE_DATA_GROUP"
+  mkdir -p "$FORGE_DATA_DIR"
+  chown root:"$FORGE_DATA_GROUP" "$FORGE_DATA_DIR"
+  chmod g+rwx "$FORGE_DATA_DIR"
+}
+
+setup_copyparty() {
+  curl -sS -L 'https://github.com/9001/copyparty/releases/latest/download/copyparty-sfx.py' -o /usr/local/bin/copyparty-sfx.py
+
+  if ! grep "^copyparty:" /etc/passwd; then
+    useradd -r -s /sbin/nologin -m -d /var/lib/copyparty -G "$FORGE_DATA_GROUP" copyparty
+  fi
+
+  ln -sf "$PWD/copyparty.conf" /etc/copyparty.conf
+  cp -f copyparty.service /etc/systemd/system/copyparty.service
+
+  systemctl enable copyparty
+  systemctl restart copyparty
 }
 
 main() {
@@ -48,6 +62,7 @@ main() {
   update_dns
   setup_caddy
   setup_forge_data
+  setup_copyparty
 }
 
 cd "$(dirname "$0")"
