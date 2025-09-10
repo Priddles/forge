@@ -44,10 +44,10 @@ setup_forge_data() {
 }
 
 main() {
-  install_os_packages
-  update_dns
-  setup_caddy
-  setup_forge_data
+  # install_os_packages
+  # update_dns
+  # setup_caddy
+  # setup_forge_data
 }
 
 cd "$(dirname "$0")"
