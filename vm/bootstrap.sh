@@ -53,7 +53,7 @@ setup_copyparty() {
   ln -sf "$PWD/copyparty.conf" /etc/copyparty.conf
   cp -f copyparty.service /etc/systemd/system/copyparty.service
 
-  systemctl enable --now copyparty
+  systemctl enable copyparty
   systemctl restart copyparty
 }
 
