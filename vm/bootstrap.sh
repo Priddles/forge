@@ -45,7 +45,10 @@ setup_forge_data() {
 
 setup_copyparty() {
   curl -sS https://github.com/9001/copyparty/releases/latest/download/copyparty-sfx.py -o /usr/local/bin/copyparty-sfx.py
-  useradd -r -s /sbin/nologin -m -d /var/lib/copyparty -G "$FORGE_GROUP" copyparty
+
+  if ! grep "^copyparty:" /etc/passwd; then
+    useradd -r -s /sbin/nologin -m -d /var/lib/copyparty -G "$FORGE_GROUP" copyparty
+  fi
 }
 
 main() {
