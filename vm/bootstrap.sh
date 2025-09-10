@@ -6,8 +6,8 @@ DNS_ZONE_NAME=$1
 DNS_DOMAIN_NAME=$2
 
 # Script constants
-FORGE_DATA=/var/forge-data
-FORGE_GROUP=forge
+FORGE_DATA_DIR=/var/forge_data
+FORGE_DATA_GROUP=forge-data
 
 # GCP metadata
 EXTERNAL_IP=$(curl -sS -H 'Metadata-Flavor:Google' 'http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip')
@@ -37,10 +37,10 @@ setup_caddy() {
 }
 
 setup_forge_data() {
-  groupadd -f -g 1337 "$FORGE_GROUP"
-  mkdir -p "$FORGE_DATA"
-  chown root:"$FORGE_GROUP" "$FORGE_DATA"
-  chmod g+rwx "$FORGE_DATA"
+  groupadd -f -g 1337 "$FORGE_DATA_GROUP"
+  mkdir -p "$FORGE_DATA_DIR"
+  chown root:"$FORGE_DATA_GROUP" "$FORGE_DATA_DIR"
+  chmod g+rwx "$FORGE_DATA_DIR"
 }
 
 setup_copyparty() {
