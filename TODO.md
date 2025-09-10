@@ -5,8 +5,8 @@ Bootstrap:
 - [x] Caddy http-only
 - [x] Update DNS on startup
 - [x] Caddy secure-only
-- [ ] Forge user/group
-- [ ] Forge data dir
+- [x] Forge user/group
+- [x] Forge data dir
 - [ ] Copyparty
 - [ ] Forge from S3
 

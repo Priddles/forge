@@ -5,9 +5,12 @@ set -eux -o pipefail # Strict mode
 DNS_ZONE_NAME=$1
 DNS_DOMAIN_NAME=$2
 
-EXTERNAL_IP=$(curl -sS -H 'Metadata-Flavor:Google' 'http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip')
+# Script constants
+FORGE_DATA=/var/forge-data
+FORGE_GROUP=forge
 
-cd "$(dirname "$0")"
+# GCP metadata
+EXTERNAL_IP=$(curl -sS -H 'Metadata-Flavor:Google' 'http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip')
 
 log() {
   printf "%s\n" "$*"
@@ -33,10 +36,19 @@ setup_caddy() {
   systemctl restart caddy.service
 }
 
+setup_forge_data() {
+  groupadd -f -g 1337 "$FORGE_GROUP"
+  mkdir -p "$FORGE_DATA"
+  chown root:"$FORGE_GROUP" "$FORGE_DATA"
+  chmod g+rwx "$FORGE_DATA"
+}
+
 main() {
   install_os_packages
   update_dns
   setup_caddy
+  setup_forge_data
 }
 
+cd "$(dirname "$0")"
 main
