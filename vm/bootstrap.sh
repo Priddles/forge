@@ -17,7 +17,7 @@ log() {
 }
 
 install_os_packages() {
-  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends caddy
+  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends caddy python3
 }
 
 update_dns() {
@@ -43,11 +43,17 @@ setup_forge_data() {
   chmod g+rwx "$FORGE_DATA"
 }
 
+setup_copyparty() {
+  curl -sS https://github.com/9001/copyparty/releases/latest/download/copyparty-sfx.py -o /usr/local/bin/copyparty-sfx.py
+  useradd -r -s /sbin/nologin -m -d /var/lib/copyparty -G "$FORGE_GROUP" copyparty
+}
+
 main() {
   # install_os_packages
   # update_dns
   # setup_caddy
   # setup_forge_data
+  setup_copyparty
 }
 
 cd "$(dirname "$0")"
