@@ -12,5 +12,5 @@ http:// {
 }
 
 cp.{$DOMAIN} {
-	respond "Copy party!" 501
+	reverse_proxy http://127.0.0.1:3923
 }
