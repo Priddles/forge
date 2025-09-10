@@ -50,6 +50,8 @@ setup_copyparty() {
     useradd -r -s /sbin/nologin -m -d /var/lib/copyparty -G "$FORGE_DATA_GROUP" copyparty
   fi
 
+  ln -sf "$PWD/copyparty.conf" /etc/copyparty.conf
+
   systemctl enable --now copyparty
   systemctl restart copyparty
 }
