@@ -7,7 +7,7 @@ Bootstrap:
 - [x] Caddy secure-only
 - [x] Forge user/group
 - [x] Forge data dir
-- [ ] Copyparty
+- [x] Copyparty
 - [ ] Forge from S3
 
 Startup:
@@ -15,3 +15,8 @@ Startup:
 - [x] Clone repo
 - [x] Run bootstrap script
 - [x] Shutdown on error
+
+Refinement:
+- [ ] Auth gate
+- [ ] Dynamically get managed zone name when updating DNS.
+- [ ] Parameterise copyparty service.
