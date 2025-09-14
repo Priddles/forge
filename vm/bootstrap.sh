@@ -22,7 +22,8 @@ install_os_packages() {
     curl -sS -L https://deb.nodesource.com/setup_22.x | bash -
   fi
 
-  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends caddy nodejs python3 zip
+  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    caddy nodejs python3 unzip zip
 }
 
 update_dns() {
