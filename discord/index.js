@@ -12,22 +12,22 @@ functions.http("discordBot", (req, res) => {
   const { version, application_id: appId, type: interactionType } = req.body;
 
   if (req.method !== "POST") {
-    return res.status(400).end({ error: "only POST accepted" });
+    return res.status(400).send({ error: "only POST accepted" });
   }
   if (appId !== DISCORD_APP_ID) {
-    return res.status(401).end({ error: "invalid application ID" });
+    return res.status(401).send({ error: "invalid application ID" });
   }
   if (!verifySig(req)) {
-    return res.status(401).end({ error: "invalid request signature" });
+    return res.status(401).send({ error: "invalid request signature" });
   }
   if (version !== INTERACTION_VERSION) {
-    return res.status(400).end({ error: "version must be 1" });
+    return res.status(400).send({ error: "version must be 1" });
   }
   if (interactionType === INTERACTION_TYPES.ping) {
-    return res.end({ type: 1 });
+    return res.send({ type: 1 });
   }
 
-  return res.end({});
+  return res.send({});
 });
 
 function verifySig(req) {
