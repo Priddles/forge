@@ -11,7 +11,7 @@ Environment=XDG_CONFIG_HOME=/var/lib/forge/.config
 SyslogIdentifier=forge
 PermissionsStartOnly=true
 
-Environment=FOUNDRY_VTT_DATA_PATH=/var/forge-data
+Environment=FOUNDRY_VTT_DATA_PATH=/var/forge_data
 ExecStart=node /usr/local/lib/foundry/resources/app/main.js
 
 [Install]

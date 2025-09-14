@@ -46,11 +46,6 @@ setup_forge_data() {
   groupadd -f -g 1337 "$FORGE_DATA_GROUP"
   mkdir -p "$FORGE_DATA_DIR"
   chown root:"$FORGE_DATA_GROUP" "$FORGE_DATA_DIR"
-  chmod g+rwx "$FORGE_DATA_DIR"
-
-  mkdir -p "$FORGE_DATA_DIR/Config"
-  chown root:"$FORGE_DATA_GROUP" "$FORGE_DATA_DIR/Config"
-  chmod g+rwx "$FORGE_DATA_DIR/Config"
 }
 
 setup_copyparty() {
@@ -78,8 +73,12 @@ setup_forge() {
   fi
 
   if ! [[ -f "$FORGE_DATA_DIR/Config/options.json" ]]; then
+    mkdir -p "$FORGE_DATA_DIR/Config"
+
     echo '{"localHostname":"localhost","port":30000,"upnp":false}' >"$FORGE_DATA_DIR/Config/options.json"
-    chown forge:"$FORGE_DATA_GROUP" "$FORGE_DATA_DIR/Config/options.json"
+    chmod g+rw "$FORGE_DATA_DIR/Config/options.json"
+
+    chown -R forge:"$FORGE_DATA_GROUP" "$FORGE_DATA_DIR"
   fi
 
   cp -f forge.service /etc/systemd/system/forge.service
