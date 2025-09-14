@@ -73,6 +73,7 @@ setup_forge() {
     unzip -qo /tmp/foundry.zip -d /usr/local/lib/foundry
   fi
 
+  mkdir -p "$FORGE_DATA_DIR/Config"
   if ! [[ -f "$FORGE_DATA_DIR/Config/options.json" ]]; then
     echo '{"localHostname":"localhost","port":30000,"upnp":false}' >"$FORGE_DATA_DIR/Config/options.json"
   fi
