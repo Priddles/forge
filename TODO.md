@@ -11,6 +11,7 @@ Bootstrap:
 - [x] Forge from S3
 - [ ] Discord bot to start/stop VM
 - [ ] Discord bot to backup foundry worlds
+- [ ] CD of discord bot using CloudBuild
 
 Startup:
 - [x] Install git
@@ -25,3 +26,4 @@ Refinement:
 - [ ] Parameterise forge service
 - [ ] Parameterise foundry settings (including port)
 - [ ] Lock down IAM conditions on roles
+- [ ] Remove DNS records on shutdown
