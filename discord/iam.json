@@ -1,0 +1,11 @@
+{
+  "serviceaccount": {
+    "roles": ["roles/forge_discord"]
+  },
+  "roles": [
+    {
+      "id": "roles/forge_discord",
+      "permissions": ["compute.instances.start", "compute.instances.stop"]
+    }
+  ]
+}
