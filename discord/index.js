@@ -9,6 +9,8 @@ const INTERACTION_TYPES = {
 };
 
 functions.http("discordBot", (req, res) => {
+  console.log("[BOT] received request", { method: req.method, body: req.body });
+
   const { version, application_id: appId, type: interactionType } = req.body;
 
   if (req.method !== "POST") {
