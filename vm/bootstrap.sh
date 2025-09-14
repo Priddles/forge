@@ -72,6 +72,10 @@ setup_forge() {
     unzip -qo /tmp/foundry.zip -d /usr/local/lib/foundry
   fi
 
+  if ! [[ -f "$FORGE_DATA_DIR/Config/options.json" ]]; then
+    echo '{"localHostname":"localhost","port":30000,"upnp":false}' >"$FORGE_DATA_DIR/Config/options.json"
+  fi
+
   cp -f forge.service /etc/systemd/system/forge.service
   systemctl enable forge
   systemctl restart forge
