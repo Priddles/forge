@@ -1,6 +1,11 @@
 {
   "serviceaccount": {
-    "roles": ["roles/logging.logWriter", "roles/monitoring.metricWriter", "roles/forge_vm"]
+    "roles": [
+      "roles/logging.logWriter",
+      "roles/monitoring.metricWriter",
+      "roles/storage.objectUser",
+      "roles/forge_vm"
+   ]
   },
   "roles": [
     {
