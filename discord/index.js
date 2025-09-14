@@ -1,4 +1,5 @@
 const functions = require("@google-cloud/functions-framework");
+const nacl = require("tweetnacl");
 
 const { DISCORD_APP_ID, DISCORD_PUBLIC_KEY } = process.env;
 
