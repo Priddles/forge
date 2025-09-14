@@ -14,14 +14,14 @@ functions.http("discordBot", (req, res) => {
   if (req.method !== "POST") {
     return res.status(400).send({ error: "only POST accepted" });
   }
+  if (version !== INTERACTION_VERSION) {
+    return res.status(400).send({ error: "version must be 1" });
+  }
   if (appId !== DISCORD_APP_ID) {
     return res.status(401).send({ error: "invalid application ID" });
   }
   if (!verifySig(req)) {
     return res.status(401).send({ error: "invalid request signature" });
-  }
-  if (version !== INTERACTION_VERSION) {
-    return res.status(400).send({ error: "version must be 1" });
   }
   if (interactionType === INTERACTION_TYPES.ping) {
     return res.send({ type: 1 });
