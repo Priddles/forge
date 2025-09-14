@@ -1,0 +1,18 @@
+[Unit]
+Description=Foundry VTT server
+
+[Service]
+User=forge
+Group=forge
+SupplementaryGroups=forge-data
+WorkingDirectory=/var/lib/forge
+Environment=XDG_CONFIG_HOME=/var/lib/forge/.config
+
+SyslogIdentifier=forge
+PermissionsStartOnly=true
+
+Environment=FOUNDRY_VTT_DATA_PATH=/var/forge-data
+ExecStart=node /usr/local/lib/foundry/resources/app/main.js
+
+[Install]
+WantedBy=multi-user.target

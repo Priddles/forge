@@ -8,7 +8,9 @@ Bootstrap:
 - [x] Forge user/group
 - [x] Forge data dir
 - [x] Copyparty
-- [ ] Forge from S3
+- [x] Forge from S3
+- [ ] Discord bot to start/stop VM
+- [ ] Discord bot to backup foundry worlds
 
 Startup:
 - [x] Install git
@@ -18,5 +20,8 @@ Startup:
 
 Refinement:
 - [ ] Auth gate
-- [ ] Dynamically get managed zone name when updating DNS.
-- [ ] Parameterise copyparty service.
+- [ ] Dynamically get managed zone name when updating DNS
+- [ ] Parameterise copyparty service
+- [ ] Parameterise forge service
+- [ ] Parameterise foundry settings (including port)
+- [ ] Lock down IAM conditions on roles

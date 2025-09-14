@@ -3,6 +3,8 @@ set -eux -o pipefail # Strict mode
 trap 'shutdown now' ERR
 
 SCRIPTS_DIR=/opt/forge
+FOUNDRY_SLOC=gs://bootleg-forge/foundry/foundry.zip
+
 DNS_ZONE_NAME=REPLACEME
 DNS_DOMAIN_NAME=REPLACEME
 
@@ -18,4 +20,4 @@ fi
 
 cd "$SCRIPTS_DIR"
 git pull
-bash './vm/bootstrap.sh' "$DNS_ZONE_NAME" "$DNS_DOMAIN_NAME"
+bash './vm/bootstrap.sh' "$DNS_ZONE_NAME" "$DNS_DOMAIN_NAME" "$FOUNDRY_SLOC"

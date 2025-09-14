@@ -4,6 +4,7 @@ set -eux -o pipefail # Strict mode
 # Script args
 DNS_ZONE_NAME=$1
 DNS_DOMAIN_NAME=$2
+FOUNDRY_SLOC=$3
 
 # Script constants
 FORGE_DATA_DIR=/var/forge_data
@@ -17,7 +18,11 @@ log() {
 }
 
 install_os_packages() {
-  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends caddy python3
+  if ! command -v node >/dev/null 2>&1; then
+    curl -sS -L https://deb.nodesource.com/setup_22.x | bash -
+  fi
+
+  DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends caddy nodejs python3 zip
 }
 
 update_dns() {
@@ -57,12 +62,28 @@ setup_copyparty() {
   systemctl restart copyparty
 }
 
+setup_forge() {
+  if ! grep "^forge:" /etc/passwd; then
+    useradd -r -s /sbin/nologin -m -d /var/lib/forge -G "$FORGE_DATA_GROUP" forge
+  fi
+
+  if ! [[ -f '/usr/local/lib/foundry/foundryvtt' ]]; then
+    gcloud storage cp "$FOUNDRY_SLOC" /tmp/foundry.zip
+    unzip -qo /tmp/foundry.zip -d /usr/local/lib/foundry
+  fi
+
+  cp -f forge.service /etc/systemd/system/forge.service
+  systemctl enable forge
+  systemctl restart forge
+}
+
 main() {
   install_os_packages
   update_dns
   setup_caddy
   setup_forge_data
   setup_copyparty
+  setup_forge
 }
 
 cd "$(dirname "$0")"

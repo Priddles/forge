@@ -8,7 +8,7 @@ http:// {
 }
 
 {$DOMAIN} {
-	respond "Hello world!" 418
+	reverse_proxy http://127.0.0.1:30000
 }
 
 cp.{$DOMAIN} {
