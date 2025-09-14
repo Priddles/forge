@@ -37,6 +37,10 @@ function verifySig(req) {
   const timestamp = req.get("X-Signature-Timestamp");
   const body = req.rawBody.toString();
 
+  if (!signature || !timestamp || !body) {
+    return false;
+  }
+
   return nacl.sign.detached.verify(
     Buffer.from(timestamp + body),
     Buffer.from(signature, "hex"),
