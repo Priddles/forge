@@ -10,6 +10,9 @@ const INTERACTION_TYPES = {
 functions.http("discordBot", (req, res) => {
   const { version, application_id: appId, type: interactionType } = req.body;
 
+  if (req.method !== "POST") {
+    return res.status(400).end({ error: "only POST accepted" });
+  }
   if (appId !== DISCORD_APP_ID) {
     return res.status(401).end({ error: "invalid application ID" });
   }
